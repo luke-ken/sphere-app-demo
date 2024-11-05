@@ -82,11 +82,12 @@ document.getElementById("submit-radius").addEventListener("click", () => {
 
     if (radiusInput === "") return;
 
-    if (radiusInput <= 0) {
+    const radiusInputNumber = parseFloat(radiusInput);
+    if (radiusInputNumber <= 0) {
         warningText.style.display = "block";
     } else {
         warningText.style.display = "none";
-        setRadius(parseFloat(radiusInput))
+        setRadius(radiusInputNumber)
             .then(() => fetchRadiusAndCreateSphere()) // fetch newly updated radius after setRadius
             .catch(error => console.log(error));
     }
