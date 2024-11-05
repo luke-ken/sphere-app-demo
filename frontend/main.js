@@ -48,6 +48,7 @@ async function fetchRadiusAndCreateSphere() {
         })
         const data = await response.json();
         const radius = data.result;
+        document.getElementById("currentRadiusValue").innerText = `Current radius: ${radius}`;
         createSphere(radius);
     } catch (error) {
         console.error(error);
@@ -77,7 +78,14 @@ async function setRadius(newRadius) {
 // attach event listener to submit button
 document.getElementById("submitRadius").addEventListener("click", () => {
     const radiusInput = document.getElementById("radiusInput").value;
-    if (radiusInput) {
+    const warningText = document.getElementById("warningText");
+
+    if (radiusInput === "") return;
+
+    if (radiusInput <= 0) {
+        warningText.style.display = "block";
+    } else {
+        warningText.style.display = "none";
         setRadius(parseFloat(radiusInput))
             .then(() => fetchRadiusAndCreateSphere()) // fetch newly updated radius after setRadius
             .catch(error => console.log(error));

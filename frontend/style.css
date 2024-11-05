@@ -3,3 +3,8 @@
     flex-direction: row;
     column-gap: 24px;
 }
+
+#warningText {
+    display: none;
+    color: red;
+}
