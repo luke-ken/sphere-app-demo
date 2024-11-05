@@ -7,11 +7,17 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const sphereController = require("./routes/sphereController");
+
 var app = express();
 
-// view engine setup
+const cors = require("cors");
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// enable default cors only, aka allows all origins
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,7 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
+app.use("/api", sphereController);
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
